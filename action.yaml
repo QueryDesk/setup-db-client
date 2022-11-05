@@ -1,0 +1,58 @@
+name: Setup Database Client
+description: Automate setting up a database client using querydesk.com so your team has instant access for debugging and testing.
+
+branding: 
+  icon: database
+  color: blue
+  
+inputs:
+  api-key:
+    description: API key from settings on https://app.querydesk.com
+    required: true
+  hostname:
+    description: The hostname for connecting to the database, either an ip or url.
+    required: true
+  database:
+    description: The name of the database to connect on.
+    required: true
+  adapter:
+    description: The adapter to use to establish the connection. Currently only `postgres` is supported, but mysql and sql server are on the roadmap.
+    required: true
+  username:
+    description: The username to authenticate with.
+    required: true
+  password:
+    description: The password to authenticate with.
+    required: true
+  agent-id:
+    description: The id of the agent this database should use to connect
+  ssl:
+    description: Set to `enabled` to turn on ssl connections for this database.
+  ssl_ca_cert:
+    description: The server ca cert to use with ssl connections, `ssl` must be set to `enabled`.
+  ssl_key:
+    description: The client key to use with ssl connections, `ssl` must be set to `enabled`.
+  ssl_cert:
+    description: The client cert to use with ssl connections, `ssl` must be set to `enabled`.
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Database Client
+      shell: bash
+      run: |
+        curl -X POST https://api.querydesk.com/v1/databases/new \
+          -H "content-type: application/json" \
+          -H "x-api-key: ${{ inputs.api-key }}" \
+          -d '{ \
+              "hostname": "${{ inputs.hostname }}", \
+              "database": "${{ inputs.database }}", \
+              "adapter": "${{ inputs.adapter }}", \
+              "username": "${{ inputs.username }}", \
+              "password": "${{ inputs.password }}", \
+              "agent_id": "${{ inputs.agent-id }}", \
+              "ssl": "${{ inputs.ssl }}", \
+              "ssl_ca_cert": "${{ inputs.ssl_ca_cert }}", \
+              "ssl_key": "${{ inputs.ssl_key }}", \
+              "ssl_cert": "${{ inputs.ssl_cert }}", \
+            }'
