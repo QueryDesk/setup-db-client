@@ -3,6 +3,8 @@
 Automate setting up a database client using https://querydesk.com so your 
 team has instant access for debugging and testing.
 
+This action can be called multiple times with the same id, which will update the connection.
+
 ## Usage
 
 ```yaml
@@ -16,6 +18,7 @@ jobs:
       uses: QueryDesk/setup-db-client@v1
       with:
         api-key: ${{ secrets.QUERYDESK_API_KEY}}
+        id: pr-${{ github.event.pull_request.number }} # your workflow trigger must be `pull_request` for this to work
         hostname: localhost
         database: database_name
         adapter: postgres
@@ -36,6 +39,8 @@ jobs:
     ```text
     SFMyNTY.g2gDbQAAAB5rZXlfMDFHSDRHWkFFVkVIOThCWlhXRzZFMjNOUlduBgDh2w9JhAFiAAFRgA.SeeINPdFn2cz6kqnkPb7IE7B9OLnc840R--hWiRoTYg
     ```
+
+-   `id`: (Required) A unique id used to interact with this resource through the API.
 
 -   `hostname`: (Required) The hostname for connecting to the database, either an ip or url.
 
@@ -97,6 +102,7 @@ jobs:
       uses: QueryDesk/setup-db-client@v1
       with:
         api-key: ${{ secrets.QUERYDESK_API_KEY}}
+        id: ...
         hostname: ...
         database: ...    
         adapter: ...
@@ -128,6 +134,7 @@ jobs:
       uses: QueryDesk/setup-db-client@v1
       with:
         api-key: ${{ secrets.QUERYDESK_API_KEY}}
+        id: pr-${{ github.event.pull_request.number }} # your workflow trigger must be `pull_request` for this to work
         hostname: ${{ steps.create-db.outputs.hostname }}    
         database: ${{ steps.create-db.outputs.database }}    
         adapter: postgres

@@ -9,6 +9,9 @@ inputs:
   api-key:
     description: API key from settings on https://app.querydesk.com
     required: true
+  id:
+    description: The id to assign to this database connection. The same id must be passed in subsequent requests to update/delete this connection.
+    required: true
   hostname:
     description: The hostname for connecting to the database, either an ip or url.
     required: true
@@ -41,18 +44,19 @@ runs:
     - name: Setup Database Client
       shell: bash
       run: |
-        curl -X POST https://api.querydesk.com/v1/databases/new \
+        curl -X PUT https://api.querydesk.com/v1/databases/new \
           -H "content-type: application/json" \
           -H "x-api-key: ${{ inputs.api-key }}" \
-          -d '{ \
-              "hostname": "${{ inputs.hostname }}", \
-              "database": "${{ inputs.database }}", \
-              "adapter": "${{ inputs.adapter }}", \
-              "username": "${{ inputs.username }}", \
-              "password": "${{ inputs.password }}", \
-              "agent_id": "${{ inputs.agent-id }}", \
-              "ssl": "${{ inputs.ssl }}", \
-              "ssl_ca_cert": "${{ inputs.ssl_ca_cert }}", \
-              "ssl_key": "${{ inputs.ssl_key }}", \
-              "ssl_cert": "${{ inputs.ssl_cert }}", \
-            }'
+          -d '{
+              "id": "${{ inputs.id }}",
+              "hostname": "${{ inputs.hostname }}",
+              "database": "${{ inputs.database }}",
+              "adapter": "${{ inputs.adapter }}",
+              "username": "${{ inputs.username }}",
+              "password": "${{ inputs.password }}",
+              "agent_id": "${{ inputs.agent-id }}",
+              "ssl": "${{ inputs.ssl }}",
+              "ssl_ca_cert": "${{ inputs.ssl_ca_cert }}",
+              "ssl_key": "${{ inputs.ssl_key }}",
+              "ssl_cert": "${{ inputs.ssl_cert }}"
+          }'
