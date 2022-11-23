@@ -42,6 +42,8 @@ jobs:
 
 -   `id`: (Required) A unique id used to interact with this resource through the API.
 
+-   `name`: (Required)  The name for users to use to identity the database.
+
 -   `hostname`: (Required) The hostname for connecting to the database, either an ip or url.
 
 -   `database`: (Required) The name of the database to connect on.

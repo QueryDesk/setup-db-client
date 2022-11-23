@@ -12,6 +12,9 @@ inputs:
   id:
     description: The id to assign to this database connection. The same id must be passed in subsequent requests to update/delete this connection.
     required: true
+  name:
+    description: The name for users to use to identity the database.
+    required: true
   hostname:
     description: The hostname for connecting to the database, either an ip or url.
     required: true
@@ -49,6 +52,7 @@ runs:
           -H "x-api-key: ${{ inputs.api-key }}" \
           -d '{
               "id": "${{ inputs.id }}",
+              "name": "${{ inputs.name }}",
               "hostname": "${{ inputs.hostname }}",
               "database": "${{ inputs.database }}",
               "adapter": "${{ inputs.adapter }}",
