@@ -50,6 +50,7 @@ runs:
         curl -X PUT https://api.querydesk.com/v1/databases/new \
           -H "content-type: application/json" \
           -H "x-api-key: ${{ inputs.api-key }}" \
+          --fail \
           -d '{
               "id": "${{ inputs.id }}",
               "name": "${{ inputs.name }}",
