@@ -82,6 +82,8 @@ jobs:
     __must__ be set to `enabled`. This is encrypted with field level encryption and is 
     never exposed to users of the database client. __Must__ be base64 encoded.
 
+-   `host`: (Optional) The host to make the api call to, defaults to api.querydesk.com.
+
 ## Examples
 
 ### Setting up with SSL

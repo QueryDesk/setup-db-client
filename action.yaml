@@ -40,6 +40,9 @@ inputs:
     description: The client key to use with ssl connections, `ssl` must be set to `enabled`.
   ssl_cert:
     description: The client cert to use with ssl connections, `ssl` must be set to `enabled`.
+  host:
+    description: The host to make the api call to.
+    default: api.querydesk.com
 
 runs:
   using: composite
@@ -47,7 +50,7 @@ runs:
     - name: Setup Database Client
       shell: bash
       run: |
-        curl -X PUT https://api.querydesk.com/v1/databases/new \
+        curl -X PUT https://${{ inputs.host }}/v1/databases/new \
           -H "content-type: application/json" \
           -H "x-api-key: ${{ inputs.api-key }}" \
           --fail \
