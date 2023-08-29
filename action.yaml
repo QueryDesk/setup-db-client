@@ -22,7 +22,7 @@ inputs:
     description: The name of the database to connect on.
     required: true
   adapter:
-    description: The adapter to use to establish the connection. Currently only `postgres` is supported, but mysql and sql server are on the roadmap.
+    description: The adapter to use to establish the connection. Currently only `postgres` and `mysql` are supported, but  sql server is on the roadmap.
     required: true
   username:
     description: The username to authenticate with.
